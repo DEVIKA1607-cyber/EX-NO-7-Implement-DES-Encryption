@@ -1,13 +1,12 @@
 # NAME : D DEVIKA
 # REG NO : 212224100010
-
 # EX-NO-7-Implement-DES-Encryption
 
 ## Aim:
 
 To use the Data Encryption Standard (DES) algorithm for a practical application, such as securing sensitive data transmission in financial transactions.
 
-## ALGORITHM:
+## Algorithm:
 
 1. DES is based on a symmetric key encryption technique that encrypts data in 64-bit blocks.
 2. DES uses a Feistel network structure with 16 rounds of processing for encryption.
@@ -15,36 +14,39 @@ To use the Data Encryption Standard (DES) algorithm for a practical application,
 4. DES applies initial and final permutations along with 16 rounds of substitution and permutation transformations to produce ciphertext.
 
 ## Program:
-```
+
+```c
 #include <stdio.h>
 #include <string.h>
-
-void xorC(char *in,char *k,char *out,int len){
-    for(int i=0;i<len;i++) out[i]=in[i]^k[i%strlen(k)];
-    out[len]=0;
+void xorCrypt(char *in, char *key, char *out, int len)
+{
+  for (int i = 0; i < len; i++) out[i] = in[i] ^ key[i % strlen(key)];
+  out[len] = 0;
 }
+int main() 
+{
+  char msg[100], key[100], enc[100], dec[100];
+  printf("Enter message: "); fgets(msg, 100, stdin);
+  msg[strcspn(msg, "\n")] = 0;
+  printf("Enter key: "); fgets(key, 100, stdin);
+  key[strcspn(key, "\n")] = 0;
 
-int main(){
-    char m[100],k[100],e[100],d[100];
+  int len = strlen(msg);
+  xorCrypt(msg, key, enc, len);
+  printf("Encrypted: ");
+  for (int i = 0; i < len; i++) printf("%02X ", (unsigned char)enc[i]);
+  printf("\n");
 
-    scanf("%s%s",m,k);   // simple input
-
-    int len=strlen(m);
-    xorC(m,k,e,len);
-
-    printf("Enc:");
-    for(int i=0;i<len;i++) printf("%02X ",(unsigned char)e[i]);
-
-    xorC(e,k,d,len);
-    printf("\nDec:%s",d);
+  xorCrypt(enc, key, dec, len);
+  printf("Decrypted: %s\n", dec);
+  return 0;
 }
 ```
-
-
 
 ## Output:
 
-<img width="1217" height="718" alt="image" src="https://github.com/user-attachments/assets/9133d22e-e88b-45e7-b125-e795acfb07d7" />
+<img width="951" height="807" alt="image" src="https://github.com/user-attachments/assets/8dd236be-d135-447c-9a16-71a09c1bba2b" />
 
 ## Result:
-  The program is executed successfully
+Thus, the implementation of the DES algorithm using the C program is executed successfully.
+
